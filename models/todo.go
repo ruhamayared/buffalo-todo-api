@@ -6,15 +6,19 @@ import (
 
 	"github.com/gobuffalo/pop/v6"
 	"github.com/gobuffalo/validate/v3"
-	"github.com/gofrs/uuid"
 )
 
 // Todo is used by pop to map your todoes database table to your go code.
 type Todo struct {
-	ID        uuid.UUID `json:"id" db:"id"`
+	ID        int       `json:"id" db:"id"`
 	Item      string    `json:"item" db:"item"`
 	CreatedAt time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
+}
+
+// TableName overrides the table name used by Pop.
+func (u Todo) TableName() string {
+	return "todos"
 }
 
 // String is not required by pop and may be deleted
@@ -24,10 +28,10 @@ func (t Todo) String() string {
 }
 
 // Todoes is not required by pop and may be deleted
-type Todoes []Todo
+type Todos []Todo
 
 // String is not required by pop and may be deleted
-func (t Todoes) String() string {
+func (t Todos) String() string {
 	jt, _ := json.Marshal(t)
 	return string(jt)
 }
