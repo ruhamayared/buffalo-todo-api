@@ -1,0 +1,4 @@
+create_table("todos") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("item", "string", {"size": 100})
+}
